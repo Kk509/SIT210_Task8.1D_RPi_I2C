@@ -1,0 +1,22 @@
+from smbus import SMBus
+
+# set up I2C bus address for the particle argon and photoresistor
+addr = 0x8
+# create smbus object
+bus = SMBus(1)
+
+send = 1
+
+print("Enter number between 0 and 255 to adjust LED brightness")
+while send == 1:
+        led_brightness = input(">>  ")
+
+        try:
+                led_brightness = int(led_brightness)
+                if led_brightness >=0 and led_brightness <=255:
+                        bus.write_byte(addr, led_brightness)
+                else:
+                        print("Invalid input! Value for LED brightness needs to be between 0 and 255.")
+
+        except ValueError:
+                send = 0
